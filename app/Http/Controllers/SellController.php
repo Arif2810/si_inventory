@@ -81,21 +81,6 @@ class SellController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(){
-        
-        dd('disini');
-        $sells = Sell::where('status', '0');
-        $sells->update(['status'=>'1']);
-        return back()->with('pesan', 'Data dikirim ke laporan');
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -106,5 +91,25 @@ class SellController extends Controller
         $sells = Sell::find($id_sell);
         $sells->delete();
         return redirect('sell')->with('pesan', 'pengambilan dibatalkan!');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(){
+        
+        $sells = Sell::where('status', '0');
+        $sells->update(['status'=>'1']);
+        return back()->with('pesan', 'Data dikirim ke laporan');
+    }
+    
+
+    public function report(){
+
+        
     }
 }

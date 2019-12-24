@@ -121,12 +121,12 @@ class ProductController extends Controller
         $products->ket_produk  = $request->ket_produk;
 
         if($request->hasFile('image')){
-        $file = $request->file('image');
-        $fileName = time().'.'.$file->getClientOriginalExtension();
-        $destinationPath = public_path('/image');
-        $file->move($destinationPath, $fileName);
-        $products->image = $fileName;
-      }
+            $file = $request->file('image');
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            $destinationPath = public_path('/image');
+            $file->move($destinationPath, $fileName);
+            $products->image = $fileName;
+        }
 
         $products->save();
         return redirect('product')->with('pesan', 'Data berhasil di update');

@@ -45,7 +45,7 @@
                     Supplier : <b>{{ $products->suppliers->nama_supplier }}</b><br>
                     stok : {{ $products->stok_produk }} {{ $products->units->nama_unit }}<br>
                     lokasi : {{ $products->lokasi }}<br>
-                    {{ $products->ket_produk }}
+                    Keterangan : {{ $products->ket_produk }}
                   </p>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 <html>
 <head>
   @include('templates.head')
-  <title>Pengambilan Barang</title>
+  <title>Barang Masuk</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -20,7 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Pengambilan Barang
+        Data Barang Masuk
       </h1>
 
     </section>
@@ -31,29 +31,17 @@
             <div class="col-xs-12">
                 <div class="box" style="padding: 0 30px">
                     <div class="box-header">
-                      <h5 class="box-title">Barang yang akan diambil</h5>
+                      <h5 class="box-title">Input barang masuk</h5>
                     </div>
                     <div class="row">
                       <div class="col-xs-6">
                         <div class="box-body">
                           @include('gudang/validation')
-                          <form action="{{ route('sell.store') }}" method="post">
+                          <form action="{{ route('purchase.store') }}" method="post">
                             <div class="row">
                               <div class="col-xs-6">
                                 <label>Tanggal</label>
-                                <input required="" class="form-control form-control-sm" type="date" name="tgl_sell">
-                              </div>
-                            </div>
-
-                            <div class="row" style="margin-top: 10px;">
-                              <div class="col-xs-6">
-                                <label>Pengambil</label>
-                                <select class="form-control form-control-sm" name="id_karyawan">
-                                  <option>- SAPid -</option>
-                                  @foreach($employees as $employee)
-                                  <option value="{{$employee->id_karyawan}}">{{$employee->sap}}</option>
-                                  @endforeach
-                                </select>
+                                <input required="" class="form-control form-control-sm" type="date" name="tgl_purchase">
                               </div>
                             </div>
 
@@ -72,7 +60,7 @@
                             <div class="row" style="margin-top: 10px;">
                               <div class="col-xs-6">
                                 <label>Jumlah</label>
-                                <input class="form-control" type="text" name="qty">
+                                <input class="form-control" type="text" name="qty_purchase">
                               </div>
                             </div>
                             <div class="row" style="margin-top: 10px;">
@@ -89,9 +77,9 @@
                       <div class="col-xs-6" style="padding: 20px">
                         <p style="color: salmon; font-style: italic;">Keterangan :</p>
                         <p>
-                          Pilih barang yang akan diambil.
-
+                          Barang masuk dari supplier.
                         </p>
+                        <p>Pastikan barang yang masuk sudah terdata di <a href="{{ url('product') }}">data barang</a></p>
                       </div>
                     </div>
                   
@@ -103,7 +91,7 @@
         <div class="col-xs-12">
           <div class="box" style="padding: 0 30px">
               <div class="box-header">
-                <h3 class="box-title">Data Barang yang diambil</h3>
+                <h3 class="box-title">Data Barang yang masuk</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -113,26 +101,26 @@
                     <?php $no=1; ?>
                     <tr style="background-color: rgb(230, 230, 230);">
                       <th>No</th>
-                      <th>Tanggal</th>
+                      <th>Tanggal Masuk</th>
                       <th>Kode Barang</th>
                       <th>Nama Barang</th>
-                      <th>Pengambil</th>
+                      <th>Supplier</th>
                       <th>Jumlah</th>
                       <th>Action</th>                 
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($sells as $sell)
+                    @foreach($purchases as $purchase)
                     <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $sell->tgl_sell }}</td>
-                      <td>{{ $sell->kode_produk }}</td>
-                      <td>{{ $sell->nama_produk }}</td>
-                      <td>{{ $sell->nama_karyawan }}</td>
-                      <td>{{ $sell->qty }}</td>
+                      <td>{{ $purchase->tgl_purchase }}</td>
+                      <td>{{ $purchase->products->kode_produk }}</td>
+                      <td>{{ $purchase->products->nama_produk }}</td>
+                      <td>{{ $purchase->products->id_supplier }}</td>
+                      <td>{{ $purchase->qty_purchase }}</td>
 
                       <td>
-                        <form action="{{ url('sell')}}/{{$sell->id_sell}}" method="post">
+                        <form action="{{ url('purchase')}}/{{$purchase->id_purchase}}" method="post">
                           {{method_field('delete')}}
                           {{csrf_field()}}
                           <input class="btn btn-danger btn-sm" type="submit" name="submit" value="Cancel">
@@ -149,7 +137,7 @@
                   </tbody>
                 </table>
                 <div style="margin-top: 20px">
-                  <a href="{{ route('sell.update') }}" class="btn btn-success"><i class="glyphicon glyphicon-circle-arrow-right"></i> Selesai</a>
+                  <a href="{{ route('purchase.update') }}" class="btn btn-success"><i class="glyphicon glyphicon-circle-arrow-right"></i> Selesai</a>
                 </div>
               </div>
             <!-- /.box-body -->

@@ -2,7 +2,19 @@
 <html>
 <head>
 	@include('templates.head')
-  <title>Jadwal Training</title>
+  <title>Laporan Barang Masuk</title>
+
+  <style type="text/css">
+    .box-body img{
+      width: 50px;
+    }
+
+    @media print{
+      .none{
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -20,7 +32,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Jadwal Training
+        Laporan Barang Masuk
       </h1>
     </section>
 
@@ -30,48 +42,51 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Jadwal training karyawan</h3>
+              <h3 class="box-title">Laporan barang masuk</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              @include('admin/notification')
-              <div>
-								@if(Auth::user()->akses == 'admin')
-	                <a href="{{ route('schedule.create') }}"> <button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Tambah Jadwal Training</button></a>
-								@endif
-              </div><br>
               <table id="example1" class="table table-bordered table-hover">
                 <thead>
                   <?php $no=1; ?>
                   <tr style="background-color: rgb(230, 230, 230);">
                     <th>No</th>
-                    <th>SAPid</th>
-                    <th>Employee name</th>
-                    <th>Category</th>
-                    <th>Training title</th>
-                    <th>Venue</th>
-                    <th>Action</th>
+                    <th>Tanggal Masuk</th>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Kode Supplier</th>
+                    <th>Keterangan</th>
+                    @if(Auth::user()->akses !== 'admin')
+                      <th style="display: none;" class="none">Action</th>
+                    @else
+                      <th class="none">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($schedules as $schedules)
+                  @foreach($purchases as $purchase)
                   <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $schedules->employees->sap }}</td>
-                    <td>{{ $schedules->employees->nama_karyawan }}</td>
-                    <td>{{ $schedules->categories->nama_kategori }}</td>
-                    <td>{{ $schedules->judul }}</td>
-                    <td>{{ $schedules->venues->nama_venue }}</td>
-                    <td>
-                      <a href="schedule/{{$schedules->id_jadwal}}/show"><button class="btn btn-primary btn-xs">Detail</button></a>
-											@if(Auth::user()->akses == 'admin')
-		                    <a href="schedule/{{$schedules->id_jadwal}}/edit"><button class="btn btn-warning btn-xs">Edit</button></a>
-		                    <button class="btn btn-danger btn-xs" data-delid={{$schedules->id_jadwal}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-											@endif
+                    <td>{{ $purchase->tgl_purchase }}</td>
+                    <td>{{ $purchase->products->kode_produk }}</td>
+                    <td>{{ $purchase->products->nama_produk }}</td>
+                    <td>{{ $purchase->qty_purchase }}</td>
+                    <td>{{ $purchase->products->id_supplier }}</td>
+                    <td>{{ $purchase->products->ket_produk }}</td>
+                    @if(Auth::user()->akses !== 'admin')
+                    <td style="display: none;" class="none">
+                      <button style="display: none;" class="btn btn-danger btn-xs" data-delid={{$purchase->id_purchase}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button> 
+          					</td>
+                    @else
+                    <td class="none">
+                      <button class="btn btn-danger btn-xs" data-delid={{$purchase->id_purchase}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button> 
                     </td>
+                    @endif
                   </tr>
-                  @endforeach
+                  @endforeach  
                 </tbody>
+
               </table>
             </div>
             <!-- /.box-body -->
@@ -95,6 +110,7 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="{{ url('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -127,30 +143,6 @@
   })
 </script>
 
-<!-- modal -->
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: rgb(200, 200, 200)">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
-      </div>
-      <form action="{{route('schedule.destroy', 'test')}}" method="post">
-        {{method_field('delete')}}
-        {{csrf_field()}}
-        <div class="modal-body" style="background-color: rgb(230, 230, 230)">
-          <p class="text-center">Apakah anda yakin akan menghapus ini?</p>
-          <input type="hidden" name="id_jadwal" id="del_id" value="">
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger">Ya, hapus ini</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak, kembali</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 @include('templates.modal')
 </body>
 </html>

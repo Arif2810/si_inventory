@@ -2,11 +2,17 @@
 <html>
 <head>
 	@include('templates.head')
-  <title>Halaman Produk</title>
+  <title>Laporan Pengambilan</title>
 
   <style type="text/css">
     .box-body img{
       width: 50px;
+    }
+
+    @media print{
+      .none{
+        display: none;
+      }
     }
   </style>
 </head>
@@ -26,7 +32,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Produk
+        Laporan Pengambilan Barang
       </h1>
     </section>
 
@@ -36,47 +42,49 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data produk gudang</h3>
+              <h3 class="box-title">Laporan pengambilan barang</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              @include('gudang/notification')
-              <div>
-								@if(Auth::user()->akses == 'admin')
-                <a href="{{ route('product.create') }}"> <button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Tambah data produk</button></a>
-								@endif
-              </div><br>
               <table id="example1" class="table table-bordered table-hover">
                 <thead>
                   <?php $no=1; ?>
                   <tr style="background-color: rgb(230, 230, 230);">
                     <th>No</th>
+                    <th>Tanggal Pengambilan</th>
                     <th>Kode Barang</th>
-                    <th>Nama</th>
-                    <th>Kategori</th>
-                    <th>Foto</th>
-                    <th>Stok</th>
-                    <th>Action</th>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Diambil oleh</th>
+                    <th>Keterangan</th>
+                    @if(Auth::user()->akses !== 'admin')
+                      <th style="display: none;" class="none">Action</th>
+                    @else
+                      <th class="none">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($products as $product)
+                  @foreach($sells as $sell)
                   <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $product->kode_produk }}</td>
-                    <td>{{ $product->nama_produk }}</td>
-                    <td>{{ $product->categories->nama_kategori }}</td>
-                    <td><img src="{{asset('image/'.$product->image)}}" alt="gambar"></td>
-                    <td>{{ $product->stok_produk }}</td>
-                    <td>
-                      <a href="product/{{$product->id_produk}}/show"><button class="btn btn-primary btn-xs">Detail</button></a>
-											@if(Auth::user()->akses == 'admin')
-	                      <a href="product/{{$product->id_produk}}/edit"><button class="btn btn-warning btn-xs">Edit</button></a>
-	                      <button class="btn btn-danger btn-xs" data-delid={{$product->id_produk}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-											@endif
+                    <td>{{ $sell->tgl_sell }}</td>
+                    <td>{{ $sell->products->kode_produk }}</td>
+                    <td>{{ $sell->products->nama_produk }}</td>
+                    <td>{{ $sell->qty }}</td>
+                    <td>{{ $sell->employees->sap }}</td>
+                    <td>{{ $sell->products->ket_produk }}</td>
+                    @if(Auth::user()->akses !== 'admin')
+                    <td style="display: none;" class="none">
+                      <button style="display: none;" class="btn btn-danger btn-xs" data-delid={{$sell->id_sell}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button> 
+          					</td>
+                    @else
+                    <td class="none">
+                      <button class="btn btn-danger btn-xs" data-delid={{$sell->id_sell}} data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Hapus</button> 
                     </td>
+                    @endif
                   </tr>
-                  @endforeach
+                  @endforeach  
                 </tbody>
 
               </table>
@@ -135,30 +143,6 @@
   })
 </script>
 
-<!-- modal -->
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: rgb(200, 200, 200)">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
-      </div>
-      <form action="{{route('product.destroy', 'test')}}" method="post">
-        {{method_field('delete')}}
-        {{csrf_field()}}
-        <div class="modal-body" style="background-color: rgb(230, 230, 230)">
-          <p class="text-center">Apakah anda yakin akan menghapus ini?</p>
-          <input type="hidden" name="id_produk" id="del_id" value="">
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger">Ya, hapus ini</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak, kembali</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 @include('templates.modal')
 </body>
 </html>

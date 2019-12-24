@@ -19,10 +19,21 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('product', 'ProductController');
 	Route::get('/product/{id_produk}/show', 'ProductController@show');
 	//=========================================================================
-	Route::resource('sell', 'SellController');
-	Route::get('/sell/{id_sell}/show', 'SellController@show');
+	Route::get('/sell', 'SellController@index')->name('sell.index');
+	Route::post('/sell', 'SellController@store')->name('sell.store');
 	Route::get('/sell/update', 'SellController@update')->name('sell.update');
 	Route::delete('/sell/{id_sell}', 'SellController@destroy');
+	Route::get('/sell/laporan', 'SellController@report')->name('sell.report');
+	//=========================================================================
+	Route::resource('/report', 'ReportController');
+	//=========================================================================
+	Route::get('/purchase', 'PurchaseController@index')->name('purchase.index');
+	Route::post('/purchase', 'PurchaseController@store')->name('purchase.store');
+	Route::get('/purchase/update', 'PurchaseController@update')->name('purchase.update');
+	Route::delete('/purchase/{id_sell}', 'PurchaseController@destroy');
+	Route::get('/purchase/laporan', 'PurchaseController@report')->name('purchase.report');
+	//=========================================================================
+	Route::resource('/report2', 'Report2Controller');
 	//=========================================================================
 	// Route::resource('schedule', 'ScheduleController');
 	// Route::get('/schedule/{id_jadwal}/show', 'ScheduleController@show');
