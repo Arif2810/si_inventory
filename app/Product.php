@@ -18,9 +18,4 @@ class Product extends Model
 
         return $this->belongsTo('App\Unit', 'id_unit');
     }
-
-    public function suppliers(){
-
-        return $this->belongsTo('App\Supplier', 'id_supplier');
-    }
 }

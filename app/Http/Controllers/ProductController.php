@@ -10,7 +10,6 @@ use App\Http\Requests;
 use App\Product;
 use App\Category;
 use App\Unit;
-use App\Supplier;
 use File;
 
 class ProductController extends Controller
@@ -35,9 +34,8 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $units = Unit::all();
-        $suppliers = Supplier::all();
 
-        return view('gudang.product.create', compact('categories', 'units', 'suppliers'));
+        return view('gudang.product.create', compact('categories', 'units'));
     }
 
     /**
@@ -57,7 +55,6 @@ class ProductController extends Controller
       $products->kode_produk = $request->kode_produk;
       $products->nama_produk = $request->nama_produk;
       $products->id_kategori = $request->id_kategori;
-      $products->id_supplier = $request->id_supplier;
       $products->stok_produk = $request->stok_produk;
       $products->id_unit     = $request->id_unit;
       $products->lokasi      = $request->lokasi;
@@ -114,7 +111,6 @@ class ProductController extends Controller
         $products->kode_produk = $request->kode_produk;
         $products->nama_produk = $request->nama_produk;
         $products->id_kategori = $request->id_kategori;
-        $products->id_supplier = $request->id_supplier;
         $products->stok_produk = $request->stok_produk;
         $products->id_unit     = $request->id_unit;
         $products->lokasi      = $request->lokasi;

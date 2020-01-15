@@ -4,7 +4,7 @@
   @include('templates.head')
   <title>Pengambilan Barang</title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="min-height: 400px;">
 <div class="wrapper">
 
   <header class="main-header">

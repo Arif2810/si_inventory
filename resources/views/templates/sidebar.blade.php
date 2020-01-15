@@ -21,13 +21,6 @@
         </a>
       </li>
       <li>
-        <a href="{{ route('supplier.index') }}">
-          <i class="fa fa-user"></i> <span>Supplier</span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-      <li>
         <a href="{{ route('product.index') }}">
           <i class="glyphicon glyphicon-shopping-cart"></i> <span>Data Barang</span>
           <span class="pull-right-container">
@@ -45,22 +38,6 @@
       <li>
         <a href="{{ route('report.index') }}">
           <i class="glyphicon glyphicon-book"></i> <span>Laporan Pengambilan</span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ route('purchase.index') }}">
-          <i class="glyphicon glyphicon-floppy-save"></i> <span>Barang Masuk</span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ route('report2.index') }}">
-          <i class="glyphicon glyphicon-book"></i> <span>Laporan Barang Masuk</span>
           <span class="pull-right-container">
           </span>
         </a>

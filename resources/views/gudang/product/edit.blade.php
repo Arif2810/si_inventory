@@ -54,10 +54,6 @@
 										{{ Form::select('id_kategori', \App\Category::pluck('nama_kategori', 'id_kategori'), NULL, ['class'=>'form-control']) }}
 									</div><br>
 									<div class="form-group">
-										<label>Supplier</label>
-										{{ Form::select('id_supplier', \App\Supplier::pluck('nama_supplier', 'id_supplier'), NULL, ['class'=>'form-control']) }}
-									</div><br>
-									<div class="form-group">
 										<label>Foto Produk</label><br>
 										<img src="{{asset('image/'.$products->image)}}" alt="gambar">
 										<input type="file" name="image" value="{{ $products->image }}" class="form-control">

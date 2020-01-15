@@ -54,15 +54,6 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<label>Supplier</label>
-											<select class="form-control" name="id_supplier">
-												<option>- Supplier -</option>
-												@foreach($suppliers as $supplier)
-												<option value="{{$supplier->id_supplier}}">{{$supplier->nama_supplier}}</option>
-												@endforeach
-											</select>
-										</div>
-										<div class="form-group">
 											<label>Foto Barang</label>
 								            <input type="file" name="image" value="" class="form-control">
 							            </div>
