@@ -18,7 +18,7 @@ class GenderController extends Controller
     public function index(){
 
         $genders = Gender::all(); 
-        return view('admin.gender.index', ['genders'=>$genders]);
+        return view('gudang.gender.index', ['genders'=>$genders]);
     }
 
     /**
@@ -61,7 +61,7 @@ class GenderController extends Controller
     public function edit($id_gender){
 
         $genders = Gender::find($id_gender);
-        return view('admin/gender/edit', compact('genders'));
+        return view('gudang/gender/edit', compact('genders'));
     }
 
     /**

@@ -46,6 +46,24 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              @include('gudang/notification')
+
+              <div style="margin-bottom: 10px;" class="print mb-4 none">
+                <form class="form-inline" action="#" method="get">
+                  <div class="form-group">
+                    Dari Tanggal :
+                    <input type="date" name="tgl_awal" class="form-control input-sm"> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Sampai Tanggal :
+                    <input type="date" name="tgl_akhir" class="form-control input-sm">
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm" name="cari">Filter</button>
+                    <button type="submit" class="btn btn-danger btn-sm" name="reset">Reset</button>
+                  </div>
+                </form>
+              </div>
+
               <table id="example1" class="table table-bordered table-hover">
                 <thead>
                   <?php $no=1; ?>
@@ -88,6 +106,7 @@
                 </tbody>
 
               </table>
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -142,6 +161,31 @@
     })
   })
 </script>
+
+<!-- modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: rgb(200, 200, 200)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
+      </div>
+      <form action="{{route('report.destroy', 'test')}}" method="post">
+        {{method_field('delete')}}
+        {{csrf_field()}}
+        <div class="modal-body" style="background-color: rgb(230, 230, 230)">
+          <p class="text-center">Apakah anda yakin akan menghapus ini?</p>
+          <input type="hidden" name="id_sell" id="del_id" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Ya, hapus ini</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak, kembali</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 @include('templates.modal')
 </body>

@@ -32,8 +32,8 @@
 					              <h5 class="box-title">Edit data karyawan</h5>
 					            </div>
 					            <div class="box-body">
-					            	@include('admin/validation')
-					            	@include('admin/notification')
+					            	@include('gudang/validation')
+					            	@include('gudang/notification')
 					            	<form action="{{ url('/gender')}}/{{ $genders->id_gender }}" method="post">
 					            		<div>
 											<label>Jenis Kelamin</label>

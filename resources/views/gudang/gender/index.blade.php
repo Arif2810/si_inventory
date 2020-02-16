@@ -2,6 +2,7 @@
 <html>
 <head>
   @include('templates.head')
+  <title>Halaman Gender</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -33,7 +34,7 @@
                       <h5 class="box-title">Tambah data gender karyawan</h5>
                     </div>
                     <div class="box-body">
-                      @include('admin/validation')
+                      @include('gudang/validation')
                       <form action="{{ url('/gender') }}" method="post">
                         <div>
                           <label>Jenis Kelamin</label>
@@ -61,7 +62,7 @@
               </div>
               <!-- /.box-header -->
               <div class="box-body">
-                @include('admin/notification')
+                @include('gudang/notification')
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <?php $no=1; ?>
